@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>저장된 데이터 보기</title>
+</head>
+<body>
+    <h1>저장된 랜딩페이지 데이터</h1>
+    <pre id="dataDisplay"></pre>
+    <button onclick="clearData()">모든 데이터 삭제</button>
+
+    <script>
+        function displayData() {
+            const data = JSON.parse(localStorage.getItem("landingPages")) || [];
+            document.getElementById("dataDisplay").textContent = JSON.stringify(data, null, 2);
+        }
+
+        function clearData() {
+            if (confirm("정말로 모든 데이터를 삭제하시겠습니까?")) {
+                localStorage.removeItem("landingPages");
+                displayData();
+            }
+        }
+
+        window.onload = displayData;
+    </script>
+</body>
+</html>
