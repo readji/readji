@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개별 랜딩페이지</title>
+</head>
+<body>
+    <h1 id="pageTitle">랜딩페이지</h1>
+    <p><strong>이름:</strong> <span id="name"></span></p>
+    <p><strong>이메일:</strong> <span id="email"></span></p>
+    <p><strong>전화번호:</strong> <span id="phone"></span></p>
+    <button onclick="location.href='index.html'">메인으로 가기</button>
+
+    <script>
+        function loadLandingPage() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get("id");
+
+            const landingData = JSON.parse(localStorage.getItem("landingPages")) || [];
+            const page = landingData.find(p => p.id === id);
+
+            if (page) {
+                document.getElementById("pageTitle").textContent = `${page.name}의 랜딩페이지`;
+                document.getElementById("name").textContent = page.name;
+                document.getElementById("email").textContent = page.email;
+                document.getElementById("phone").textContent = page.phone;
+            } else {
+                document.body.innerHTML = "<h1>존재하지 않는 랜딩페이지입니다.</h1>";
+            }
+        }
+
+        window.onload = loadLandingPage;
+    </script>
+</body>
+</html>
