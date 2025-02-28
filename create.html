@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>랜딩페이지 생성</title>
+</head>
+<body>
+    <h1>랜딩페이지 생성</h1>
+    <input type="text" id="name" placeholder="이름 입력"><br>
+    <input type="email" id="email" placeholder="이메일 입력"><br>
+    <input type="text" id="phone" placeholder="전화번호 입력"><br>
+    <button onclick="createLandingPage()">사이트 만들기</button>
+    <p id="result"></p>
+
+    <script>
+        function createLandingPage() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+
+            if (!name || !email || !phone) {
+                alert("모든 정보를 입력하세요!");
+                return;
+            }
+
+            const id = Date.now().toString();
+            const newPage = { id, name, email, phone };
+            
+            const landingData = JSON.parse(localStorage.getItem("landingPages")) || [];
+            landingData.push(newPage);
+            localStorage.setItem("landingPages", JSON.stringify(landingData));
+
+            document.getElementById("result").innerHTML = `
+                <p>랜딩페이지 생성 완료!</p>
+                <a href="landing.html?id=${id}" target="_blank">랜딩페이지 보기</a>
+            `;
+        }
+    </script>
+</body>
+</html>
