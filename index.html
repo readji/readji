@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>랜딩페이지 목록</title>
+</head>
+<body>
+    <h1>랜딩페이지 목록</h1>
+    <button onclick="location.href='create.html'">새 랜딩페이지 만들기</button>
+    <ul id="landingList"></ul>
+
+    <script>
+        function loadLandingPages() {
+            const landingData = JSON.parse(localStorage.getItem("landingPages")) || [];
+            const list = document.getElementById("landingList");
+            list.innerHTML = "";
+
+            landingData.forEach(page => {
+                const li = document.createElement("li");
+                li.innerHTML = `<a href="landing.html?id=${page.id}">${page.name}의 랜딩페이지</a>`;
+                list.appendChild(li);
+            });
+        }
+
+        window.onload = loadLandingPages;
+    </script>
+</body>
+</html>
